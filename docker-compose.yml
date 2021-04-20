@@ -55,10 +55,10 @@ services:
     depends_on:
       - postgres
     ports:
-    - "4466:4466"
+    - "${PRISMA_PORT}:${PRISMA_PORT}"
     environment:
       PRISMA_CONFIG: |
-        port: 4466
+        port: ${PRISMA_PORT}
         managementApiSecret: ${PRISMA_MANAGEMENT_API_SECRET}
         databases:
           default:
@@ -71,8 +71,8 @@ services:
             rawAccess: true
     labels:
       - traefik.enable=true
-      - traefik.port=4466
-      - traefik.frontend.rule=Host:http://localhost:4466
+      - traefik.port=${PRISMA_PORT}
+      - traefik.frontend.rule=Host:prisma.${DOMAIN}
       - traefik.backend=prisma
   postgres:
     container_name: postgres
