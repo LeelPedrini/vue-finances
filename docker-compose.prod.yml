@@ -26,8 +26,10 @@ services:
     ports:
       - "443:443"
   web:
+    image: web:1.0.1
     labels:
       - traefik.port=443
   api:
+    image: api:1.0.0
     command:
       npm start
